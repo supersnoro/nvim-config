@@ -66,8 +66,6 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
-
-
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
