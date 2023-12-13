@@ -64,7 +64,7 @@ return {
 	{
 		-- LSP Configuration & Plugins
 		'neovim/nvim-lspconfig',
-		cond = !vim.g.vscode,
+		cond = not vim.g.vscode,
 		event = { 'BufReadPre', 'BufNewFile' },
 		dependencies = {
 			-- Automatically install LSPs to stdpath for neovim
@@ -171,7 +171,7 @@ return {
 	},
 	{
 		'williamboman/mason.nvim',
-		cond = !vim.g.vscode
+		cond = not vim.g.vscode,
 		opts = { ui = { border = 'single' } }
 	},
 }

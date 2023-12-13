@@ -1,7 +1,7 @@
 return {
 	'nvim-telescope/telescope.nvim',
 	branch = '0.1.x',
-	cond = !vim.g.vscode,
+	cond = not vim.g.vscode,
 	opts = {
 		defaults = {
 			mappings = {

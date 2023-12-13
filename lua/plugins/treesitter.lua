@@ -9,7 +9,7 @@ local trees = {
 return {
 	-- Highlight, edit, and navigate code
 	'nvim-treesitter/nvim-treesitter',
-	cond = !vim.g.vscode, 
+	cond = not vim.g.vscode, 
 	dependencies = {
 		'nvim-treesitter/nvim-treesitter-textobjects',
 	},
