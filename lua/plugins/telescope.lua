@@ -1,5 +1,6 @@
 return {
 	'nvim-telescope/telescope.nvim',
+	event = 'VimEnter',
 	branch = '0.1.x',
 	cond = not vim.g.vscode,
 	opts = {
@@ -41,6 +42,9 @@ return {
 				end
 			end,
 		},
+		{ 'nvim-telescope/telescope-ui-select.nvim' },
+
+		{ 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
 	},
 	keys = {
 		-- See `:help telescope.builtin
@@ -71,12 +75,9 @@ return {
 		{ '<leader>gf', function() require('telescope.builtin').git_files() end,   desc = 'Search [G]it [F]iles' },
 		{ '<leader>sf', function() require('telescope.builtin').find_files() end,  desc = '[S]earch [F]iles' },
 		{ '<leader>sh', function() require('telescope.builtin').help_tags() end,   desc = '[S]earch [H]elp' },
-		{ '<leader>sw', function() require('telescope.builtin').grep_string() end,
-			                                                                           desc =
-			'[S]earch current [W]ord' },
+		{ '<leader>sw', function() require('telescope.builtin').grep_string() end, desc = '[S]earch current [W]ord' },
 		{ '<leader>sg', function() require('telescope.builtin').live_grep() end,   desc = '[S]earch by [G]rep' },
-		{ '<leader>sd', function() require('telescope.builtin').diagnostics() end, desc =
-		'[S]earch [D]iagnostics' },
+		{ '<leader>sd', function() require('telescope.builtin').diagnostics() end, desc = '[S]earch [D]iagnostics' },
 		{ '<leader>sr', function() require('telescope.builtin').resume() end,      desc = '[S]earch [R]esume' },
 	},
 }
