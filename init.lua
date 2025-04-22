@@ -39,8 +39,8 @@ P.S. You can delete this when you're done too. It's your config now :)
 --]]
 
 -- Load settings before loading modules
-require('config.settings')
-require('config.lazy')
+require 'config.settings'
+require 'config.lazy'
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -63,19 +63,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump { count = -1, float = true }
+end, { desc = 'go to previous diagnostic message' })
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump { count = 1, float = true }
+end, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
--- Setup neovim lua configuration
-if not vim.g.vscode then
-  require('neodev').setup()
-end
-
 -- If we're using vscode, override any bindings to vscode-specific ones
-if vim.g.vscode then 
-  require("config.vscode")
+if vim.g.vscode then
+  require 'config.vscode'
 end
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
