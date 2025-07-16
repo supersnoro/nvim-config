@@ -12,6 +12,12 @@ return {
         },
       },
     },
+    extensions = {
+      ['ui-select'] = {
+        require('telescope.themes').get_dropdown {},
+      },
+      ['notify'] = {},
+    },
   },
   dependencies = {
     'nvim-lua/plenary.nvim',
@@ -43,7 +49,7 @@ return {
       end,
     },
     { 'nvim-telescope/telescope-ui-select.nvim' },
-
+    { 'rcarriga/nvim-notify' },
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
   keys = {
@@ -143,13 +149,32 @@ return {
     },
     {
       -- Shortcut for searching your Neovim configuration files
-      '<leader>sn>',
+      '<leader>sc',
       function()
         require('telescope.builtin').find_files {
           cwd = vim.fn.stdpath 'config',
         }
       end,
-      desc = '[S]earch [N]eovim files',
+      desc = '[S]earch Neovim [C]onfig',
+    },
+    {
+      -- Search notificiations
+      '<leader>sn',
+      function()
+        require('telescope').extensions.notify.notify {}
+      end,
+      desc = '[S]earch [N]otifications',
     },
   },
+  config = function(_, opts)
+    telescope = require 'telescope'
+
+    -- Setup telescope
+    telescope.setup(opts)
+
+    -- Load telescope extensions
+    telescope.load_extension 'fzf'
+    telescope.load_extension 'ui-select'
+    telescope.load_extension 'notify'
+  end,
 }
