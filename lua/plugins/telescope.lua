@@ -12,12 +12,6 @@ return {
         },
       },
     },
-    extensions = {
-      ['ui-select'] = {
-        require('telescope.themes').get_dropdown {},
-      },
-      ['notify'] = {},
-    },
   },
   dependencies = {
     'nvim-lua/plenary.nvim',
@@ -50,7 +44,7 @@ return {
     },
     { 'nvim-telescope/telescope-ui-select.nvim' },
     { 'rcarriga/nvim-notify' },
-    { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+    { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
   },
   keys = {
     {
@@ -169,12 +163,20 @@ return {
   config = function(_, opts)
     telescope = require 'telescope'
 
-    -- Setup telescope
-    telescope.setup(opts)
-
     -- Load telescope extensions
     telescope.load_extension 'fzf'
     telescope.load_extension 'ui-select'
     telescope.load_extension 'notify'
+
+    -- Configure extensions here, since some of them require telescope to be loaded already
+    opts.extensions = {
+      ['ui-select'] = {
+        require('telescope.themes').get_dropdown {},
+      },
+      ['notify'] = {},
+    }
+
+    -- Setup telescope
+    telescope.setup(opts)
   end,
 }
