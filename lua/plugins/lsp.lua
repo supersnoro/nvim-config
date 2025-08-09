@@ -36,6 +36,7 @@ local servers = {
       },
     },
   },
+  marksman = {}
 }
 
 return {

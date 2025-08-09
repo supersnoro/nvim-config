@@ -11,7 +11,6 @@ local trees = {
 return {
   -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
-  cond = not vim.g.vscode,
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
@@ -40,15 +39,22 @@ return {
         lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
-          ['aa'] = '@parameter.outer',
-          ['ia'] = '@parameter.inner',
+          ['ap'] = '@parameter.outer',
+          ['ip'] = '@parameter.inner',
           ['af'] = '@function.outer',
           ['if'] = '@function.inner',
-          ['ac'] = '@class.outer',
-          ['ic'] = '@class.inner',
+          ['al'] = '@assignment.inner',
+          ['ar'] = '@assignment.outer',
+          ['ic'] = '@call.inner',
+          ['ac'] = '@call.outer',
+          ['aC'] = '@class.outer',
+          ['ib'] = '@block.inner',
+          ['ifc'] = '@conditional.inner',
+          ['ilc'] = '@loop.inner'
         },
         selection_modes = {
           ['@parameter.outer'] = 'v',
+          ['@call.outer'] = 'v',
           ['@function.outer'] = 'V',
           ['@class.outer'] = '<c-v>',
         },

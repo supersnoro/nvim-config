@@ -42,6 +42,7 @@ P.S. You can delete this when you're done too. It's your config now :)
 require 'config.settings'
 require 'config.lazy'
 -- [[ Basic Keymaps ]]
+require 'config.keymaps'
 
 -- If we're using vscode, override any bindings to vscode-specific ones
 if vim.g.vscode then

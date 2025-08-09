@@ -163,6 +163,9 @@ return {
   config = function(_, opts)
     telescope = require 'telescope'
 
+    -- Setup telescope
+    telescope.setup(opts)
+
     -- Load telescope extensions
     telescope.load_extension 'fzf'
     telescope.load_extension 'ui-select'
@@ -175,8 +178,5 @@ return {
       },
       ['notify'] = {},
     }
-
-    -- Setup telescope
-    telescope.setup(opts)
   end,
 }
