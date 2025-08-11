@@ -43,14 +43,14 @@ return {
           ['ip'] = '@parameter.inner',
           ['af'] = '@function.outer',
           ['if'] = '@function.inner',
-          ['al'] = '@assignment.inner',
-          ['ar'] = '@assignment.outer',
+          ['aa'] = '@assignment.outer',
+          ['al'] = '@assignment.lhs',
+          ['ar'] = '@assignment.rhs',
           ['ic'] = '@call.inner',
           ['ac'] = '@call.outer',
           ['aC'] = '@class.outer',
-          ['ib'] = '@block.inner',
+          ['aL'] = '@loop.outer',
           ['ifc'] = '@conditional.inner',
-          ['ilc'] = '@loop.inner'
         },
         selection_modes = {
           ['@parameter.outer'] = 'v',
@@ -63,18 +63,22 @@ return {
         enable = true,
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
+          [']p'] = '@parameter.inner',
           [']m'] = '@function.outer',
           [']]'] = '@class.outer',
         },
         goto_next_end = {
+          [']P'] = '@parameter.inner',
           [']M'] = '@function.outer',
           [']['] = '@class.outer',
         },
         goto_previous_start = {
+          ['[p'] = '@parameter.inner',
           ['[m'] = '@function.outer',
           ['[['] = '@class.outer',
         },
         goto_previous_end = {
+          ['[P'] = '@parameter.inner',
           ['[M'] = '@function.outer',
           ['[]'] = '@class.outer',
         },
