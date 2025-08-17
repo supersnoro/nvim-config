@@ -1,7 +1,12 @@
+local supported_compilers = {
+  zig = 'mkdir build && zig cc -O3 -Wall -Werror -fpic -std=gnu99 -shared src/fzf.c -o build/libfzf.dll',
+  make = 'make'
+}
+
 local build_cmd ---@type string?
-for _, cmd in ipairs({ "zig", "make" }) do
+for _, cmd in ipairs({ 'zig', 'make' }) do
   if vim.fn.executable(cmd) == 1 then
-    build_cmd = cmd
+    build_cmd = supported_compilers[cmd]
     break
   end
 end
@@ -24,32 +29,14 @@ return {
   dependencies = {
     'nvim-lua/plenary.nvim',
     -- Fuzzy Finder Algorithm which require local dependencies to be built.
-    -- Only load if `make` is available. Make sure you have the system
+    -- Only load if `make` or `zig` are available. Make sure you have the system
     -- requirements installed.
     {
       'nvim-telescope/telescope-fzf-native.nvim',
       -- NOTE: If you are having trouble with this installation,
       --       refer to the README for telescope-fzf-native for more instructions.
-      build = ((build_cmd ~= "zig") and "make"
-        or "mkdir build; zig cc -O3 -Wall -Werror -fpic -std=gnu99 -shared src/fzf.c -o build/libfzf.dll"),
+      build = build_cmd,
       enabled = build_cmd ~= nil,
-      config = function()
-        local name = 'telescope.nvim'
-        local Config = require 'lazy.core.config'
-        if Config.plugins[name] and Config.plugins[name]._.loaded then
-          require('telescope').load_extension 'fzf'
-        else
-          vim.api.nvim_create_autocmd('User', {
-            pattern = 'LazyLoad',
-            callback = function(event)
-              if event.data == name then
-                require('telescope').load_extension 'fzf'
-                return true
-              end
-            end,
-          })
-        end
-      end,
     },
     { 'nvim-telescope/telescope-ui-select.nvim' },
     { 'rcarriga/nvim-notify' },
@@ -176,6 +163,7 @@ return {
     telescope.setup(opts)
 
     -- Load telescope extensions
+    telescope.load_extension 'fzf'
     telescope.load_extension 'ui-select'
     telescope.load_extension 'notify'
 
