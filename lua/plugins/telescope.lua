@@ -1,3 +1,11 @@
+local build_cmd ---@type string?
+for _, cmd in ipairs({ "zig", "make" }) do
+  if vim.fn.executable(cmd) == 1 then
+    build_cmd = cmd
+    break
+  end
+end
+
 return {
   'nvim-telescope/telescope.nvim',
   event = 'VimEnter',
@@ -22,8 +30,9 @@ return {
       'nvim-telescope/telescope-fzf-native.nvim',
       -- NOTE: If you are having trouble with this installation,
       --       refer to the README for telescope-fzf-native for more instructions.
-      build = 'make',
-      enabled = vim.fn.executable 'make' == 1,
+      build = ((build_cmd ~= "zig") and "make"
+        or "mkdir build; zig cc -O3 -Wall -Werror -fpic -std=gnu99 -shared src/fzf.c -o build/libfzf.dll"),
+      enabled = build_cmd ~= nil,
       config = function()
         local name = 'telescope.nvim'
         local Config = require 'lazy.core.config'
@@ -167,7 +176,6 @@ return {
     telescope.setup(opts)
 
     -- Load telescope extensions
-    telescope.load_extension 'fzf'
     telescope.load_extension 'ui-select'
     telescope.load_extension 'notify'
 
